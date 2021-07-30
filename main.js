@@ -1,7 +1,21 @@
 const Hoverboard = {
   container: document.getElementById('container'),
+  fadeoutEl: document.getElementById('fadeout'),
+
   colors: ['#ff0000', '#ff8700', '#ffd300', '#deff0a', '#a1ff0a', '#0aff99', '#0aefff', '#147df5', '#580aff', '#be0aff'],
   SQUARES: 500,
+  fadeout: true,
+
+  toggleFadeout() {
+    if (Hoverboard.fadeout) {
+      Hoverboard.fadeout = false
+    } else {
+      Hoverboard.fadeout = true
+
+      const squares = document.querySelectorAll('.square')
+      squares.forEach(square => Hoverboard.removeColor(square))
+    }
+  },
 
   getRandomColor() {
     return Hoverboard.colors[Math.floor(Math.random() * Hoverboard.colors.length)]
@@ -14,8 +28,10 @@ const Hoverboard = {
   },
 
   removeColor(element) {
-    element.style.background = '#1d1d1d'
-    element.style.boxShadow = '0 0 2px #000'
+    if (Hoverboard.fadeout) {
+      element.style.background = '#1d1d1d'
+      element.style.boxShadow = '0 0 2px #000'
+    }
   },
 
   createSquares() {
@@ -28,7 +44,12 @@ const Hoverboard = {
     
       Hoverboard.container.appendChild(square)
     }
+  },
+
+  start() {
+    Hoverboard.createSquares()
+    Hoverboard.fadeoutEl.addEventListener('change', Hoverboard.toggleFadeout)
   }
 }
 
-Hoverboard.createSquares()
+Hoverboard.start()

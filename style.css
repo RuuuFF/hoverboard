@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -31,4 +33,65 @@ body {
 
 .square:hover {
   transition-duration: 0s;
+}
+
+.fadeout {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background-color: #1d1d1d;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.fadeout p {
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.fadeout input {
+  display: none;
+}
+
+.fadeout label {
+  background-color: #333;
+  display: block;
+  width: 80px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fadeout label .slider {
+  display: block;
+  width: 36px;
+  height: 28px;
+  position: relative;
+  background-color: #000;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+
+.fadeout input:checked + label .slider {
+  transform: translateX(100%);
+  background-color: green;
+}
+
+.fadeout label .slider .on,
+.fadeout label .slider .off {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.fadeout input:checked + label .slider .on {
+  opacity: 1;
+}
+
+.fadeout input:not(:checked) + label .slider .off {
+  opacity: 1;
 }
