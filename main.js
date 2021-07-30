@@ -1,28 +1,34 @@
-const container = document.getElementById('container')
-const colors = ['#ff0000', '#ff8700', '#ffd300', '#deff0a', '#a1ff0a', '#0aff99', '#0aefff', '#147df5', '#580aff', '#be0aff']
-const SQUARES = 500
+const Hoverboard = {
+  container: document.getElementById('container'),
+  colors: ['#ff0000', '#ff8700', '#ffd300', '#deff0a', '#a1ff0a', '#0aff99', '#0aefff', '#147df5', '#580aff', '#be0aff'],
+  SQUARES: 500,
 
-for (let i = 0; i < SQUARES; i++) {
-  const square = document.createElement('div')
-  square.classList.add('square')
+  getRandomColor() {
+    return Hoverboard.colors[Math.floor(Math.random() * Hoverboard.colors.length)]
+  },
 
-  square.addEventListener('mouseover', () => setColor(square))
-  square.addEventListener('mouseout', () => removeColor(square))
+  setColor(element) {
+    const color = Hoverboard.getRandomColor()
+    element.style.background = color
+    element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`
+  },
 
-  container.appendChild(square)
+  removeColor(element) {
+    element.style.background = '#1d1d1d'
+    element.style.boxShadow = '0 0 2px #000'
+  },
+
+  createSquares() {
+    for (let i = 0; i < Hoverboard.SQUARES; i++) {
+      const square = document.createElement('div')
+      square.classList.add('square')
+    
+      square.addEventListener('mouseover', () => Hoverboard.setColor(square))
+      square.addEventListener('mouseout', () => Hoverboard.removeColor(square))
+    
+      Hoverboard.container.appendChild(square)
+    }
+  }
 }
 
-function setColor(element) {
-  const color = getRandomColor()
-  element.style.background = color
-  element.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`
-}
-
-function removeColor(element) {
-  element.style.background = '#1d1d1d'
-  element.style.boxShadow = '0 0 2px #000'
-}
-
-function getRandomColor() {
-  return colors[Math.floor(Math.random() * colors.length)]
-}
+Hoverboard.createSquares()
